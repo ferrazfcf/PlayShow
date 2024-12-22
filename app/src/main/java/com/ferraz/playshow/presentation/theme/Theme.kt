@@ -1,4 +1,4 @@
-package com.ferraz.playshow.ui.theme
+package com.ferraz.playshow.presentation.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

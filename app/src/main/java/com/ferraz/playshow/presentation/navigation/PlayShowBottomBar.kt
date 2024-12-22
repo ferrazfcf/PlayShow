@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -40,7 +41,7 @@ private fun BottomBar(route: Routes, navigateTo: (Routes) -> Unit) {
             .fillMaxWidth()
             .wrapContentHeight()
             .padding(12.dp),
-        horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterHorizontally),
+        horizontalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically
     ) {
         BottomBarItem(
@@ -82,13 +83,15 @@ private fun BottomBarItem(
 
     Column (
         modifier = Modifier
-            .background(backgroundColor, shape = RoundedCornerShape(4.dp))
+            .size(64.dp)
+            .background(backgroundColor, shape = RoundedCornerShape(16.dp))
             .clickable(onClick = onClick)
             .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Icon(
+            modifier = Modifier.size(32.dp),
             tint = color,
             imageVector = icon,
             contentDescription = null

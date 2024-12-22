@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import com.ferraz.playshow.presentation.navigation.PlayShowRoot
 import com.ferraz.playshow.presentation.theme.PlayShowTheme
 
-class MainActivity : ComponentActivity() {
+class PlayShowActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

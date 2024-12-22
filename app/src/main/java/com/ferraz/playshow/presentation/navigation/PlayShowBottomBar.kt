@@ -26,15 +26,15 @@ import androidx.compose.ui.unit.dp
 import com.ferraz.playshow.presentation.theme.PlayShowTheme
 
 @Composable
-fun PlayShowBottomBar(route: Routes?, onAction: (Routes) -> Unit) {
+fun PlayShowBottomBar(route: Routes?, navigateTo: (Routes) -> Unit) {
     when(route) {
-        Home, MyList -> BottomBar(route, onAction)
+        Home, MyList -> BottomBar(route, navigateTo)
         else -> Unit
     }
 }
 
 @Composable
-private fun BottomBar(route: Routes, onAction: (Routes) -> Unit) {
+private fun BottomBar(route: Routes, navigateTo: (Routes) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -47,12 +47,12 @@ private fun BottomBar(route: Routes, onAction: (Routes) -> Unit) {
             label = "Home",
             icon = Icons.Default.Home,
             selected = route == Home
-        ) { onAction(Home) }
+        ) { navigateTo(Home) }
         BottomBarItem(
             label = "My List",
             icon = Icons.Default.Star,
             selected = route == MyList
-        ) { onAction(MyList) }
+        ) { navigateTo(MyList) }
     }
 }
 
@@ -106,6 +106,6 @@ private fun BottomBarItem(
 @Composable
 private fun BottomBarPreview() {
     PlayShowTheme {
-        BottomBar(route = Home, onAction = {})
+        BottomBar(route = Home, navigateTo = {})
     }
 }

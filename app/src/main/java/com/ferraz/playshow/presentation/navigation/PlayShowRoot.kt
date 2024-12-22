@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -18,7 +17,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import kotlinx.coroutines.delay
+import com.ferraz.playshow.presentation.splash.SplashScreen
 
 @Composable
 fun PlayShowRoot() {
@@ -31,7 +30,7 @@ fun PlayShowRoot() {
         bottomBar = {
             PlayShowBottomBar(
                 route = bottomBarDestination,
-                onAction = { route ->
+                navigateTo = { route ->
                     navController.navigate(route) {
                         popUpTo(navController.graph.findStartDestination().id) {
                             saveState = true
@@ -64,15 +63,11 @@ private fun PlayShowContent(
     ) {
         composable<Splash> {
             onNavigate(Splash)
-            LaunchedEffect(Unit) {
-                delay(5000)
+            SplashScreen {
                 navController.navigate(Home) {
-                    popUpTo(Splash) {
-                        inclusive = true
-                    }
+                    popUpTo(Splash) { inclusive = true }
                 }
             }
-            Text(text = "Splash")
         }
         composable<Home> {
             onNavigate(Home)

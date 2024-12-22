@@ -16,6 +16,7 @@ val LightThemeColors = lightColorScheme(
     onPrimary = Color.White,
     secondary = DarkerRed,
     onSecondary = Color.White,
+    onSecondaryContainer = LightGray,
     tertiary = MediumGray,
     onTertiary = DarkerGray,
     background = LightGray,
@@ -29,6 +30,7 @@ val DarkThemeColors = darkColorScheme(
     onPrimary = Color.White,
     secondary = DarkerRed,
     onSecondary = Color.White,
+    onSecondaryContainer = DarkerGray,
     tertiary = MediumGray,
     onTertiary = LightGray,
     background = DarkerGray,
@@ -40,7 +42,7 @@ val DarkThemeColors = darkColorScheme(
 @Composable
 fun PlayShowTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

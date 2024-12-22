@@ -1,4 +1,4 @@
-package com.ferraz.playshow.presentation
+package com.ferraz.playshow.presentation.navigation
 
 import kotlinx.serialization.Serializable
 

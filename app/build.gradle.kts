@@ -46,6 +46,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.material.icons.core)
+    implementation(libs.material.icons.extended)
 
     // Compose BOM
     implementation(platform(libs.androidx.compose.bom))

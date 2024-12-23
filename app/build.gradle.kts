@@ -69,6 +69,8 @@ dependencies {
     implementation(libs.material.icons.core)
     implementation(libs.material.icons.extended)
 
+    implementation(libs.kotlinx.datetime)
+
     // Koin
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)

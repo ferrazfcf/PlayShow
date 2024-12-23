@@ -30,7 +30,7 @@ import org.koin.core.annotation.Single
 class KtorClient(
     engine: HttpClientEngine,
     baseUrl: BaseUrl,
-    token: AuthToken? = null
+    token: AuthToken
 ) {
 
     val client: HttpClient by lazy {
@@ -58,10 +58,10 @@ class KtorClient(
         }
     }
 
-    private fun HttpClientConfig<*>.installDefaults(baseUrl: BaseUrl, authToken: AuthToken?) {
+    private fun HttpClientConfig<*>.installDefaults(baseUrl: BaseUrl, authToken: AuthToken) {
         defaultRequest {
             url(baseUrl.url)
-            authToken?.run { header(HttpHeaders.Authorization, "Bearer $token") }
+            authToken.token?.let { token -> header(HttpHeaders.Authorization, "Bearer $token") }
             contentType(ContentType.Application.Json)
             accept(ContentType.Application.Json)
         }

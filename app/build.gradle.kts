@@ -1,9 +1,15 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.ksp)
+}
+
+private val localProperties = Properties().apply {
+    load(rootProject.file("local.properties").reader())
 }
 
 android {
@@ -18,7 +24,11 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "API_TOKEN", localProperties["API_TOKEN"].toString())
     }
+
+    buildFeatures.buildConfig = true
 
     buildTypes {
         release {
@@ -41,6 +51,10 @@ android {
     }
 }
 
+ksp {
+    arg("KOIN_CONFIG_CHECK","true")
+}
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -55,6 +69,12 @@ dependencies {
     implementation(libs.koin.androidx.compose)
     implementation(libs.koin.annotations)
     ksp(libs.koin.ksp.compiler)
+
+    // Ktor
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.client.serialization.kotlinx.json)
+    implementation(libs.ktor.client.okhttp)
 
     // Compose BOM
     implementation(platform(libs.androidx.compose.bom))

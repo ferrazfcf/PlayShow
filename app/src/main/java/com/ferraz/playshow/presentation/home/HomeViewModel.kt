@@ -19,7 +19,7 @@ import org.koin.core.annotation.Factory
 class HomeViewModel(
     private val moviesList: MoviesList,
     private val dispatchers: DispatchersProvider
-): ViewModel() {
+) : ViewModel() {
 
     private val _state = MutableStateFlow(HomeState())
     val state: StateFlow<HomeState> = _state.onStart {

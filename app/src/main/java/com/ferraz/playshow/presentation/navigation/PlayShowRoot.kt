@@ -21,8 +21,12 @@ import androidx.navigation.toRoute
 import com.ferraz.playshow.presentation.home.HomeAction.OpenMovieDetails
 import com.ferraz.playshow.presentation.home.HomeScreen
 import com.ferraz.playshow.presentation.home.HomeViewModel
+import com.ferraz.playshow.presentation.moviedetails.MovieDetailsAction
+import com.ferraz.playshow.presentation.moviedetails.MovieDetailsScreen
+import com.ferraz.playshow.presentation.moviedetails.MovieDetailsViewModel
 import com.ferraz.playshow.presentation.splash.SplashScreen
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @Composable
 fun PlayShowRoot() {
@@ -92,8 +96,16 @@ private fun PlayShowContent(
         }
         composable<MovieDetails> { backStackEntry ->
             val movieDetails: MovieDetails = backStackEntry.toRoute()
-            onNavigate(MovieDetails(movieDetails.id))
-            Text(text = "Movie Details: ${movieDetails.id}")
+            onNavigate(movieDetails)
+            val viewModel: MovieDetailsViewModel = koinViewModel { parametersOf(movieDetails.id) }
+            val state by viewModel.state.collectAsStateWithLifecycle()
+
+            MovieDetailsScreen(state) { action ->
+                when (action) {
+                    is MovieDetailsAction.NavigateBack -> navController.popBackStack()
+                    else -> viewModel.onAction(action)
+                }
+            }
         }
     }
 }

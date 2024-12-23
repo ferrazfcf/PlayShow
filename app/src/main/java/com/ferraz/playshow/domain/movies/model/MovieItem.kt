@@ -15,7 +15,7 @@ data class MovieItem(
                 MovieItem(
                     id = requireNotNull(id) { "Movie ID cannot be null" },
                     title = requireNotNull(title) { "Movie title cannot be null" },
-                    posterPath = "https://api.themoviedb.org/3$posterPath"
+                    posterPath = "https://image.tmdb.org/t/p/w500$posterPath"
                 )
             }?.getOrNull()
         }

@@ -11,13 +11,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.ferraz.playshow.presentation.home.HomeAction.OpenMovieDetails
+import com.ferraz.playshow.presentation.home.HomeScreen
+import com.ferraz.playshow.presentation.home.HomeViewModel
 import com.ferraz.playshow.presentation.splash.SplashScreen
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun PlayShowRoot() {
@@ -71,7 +76,15 @@ private fun PlayShowContent(
         }
         composable<Home> {
             onNavigate(Home)
-            Text(text = "Home")
+            val viewModel: HomeViewModel = koinViewModel()
+            val state by viewModel.state.collectAsStateWithLifecycle()
+
+            HomeScreen(state) { action ->
+                when (action) {
+                    is OpenMovieDetails -> navController.navigate(action.route)
+                    else -> viewModel.onAction(action)
+                }
+            }
         }
         composable<MyList> {
             onNavigate(MyList)

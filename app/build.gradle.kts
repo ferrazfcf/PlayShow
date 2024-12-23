@@ -70,6 +70,7 @@ dependencies {
     implementation(libs.material.icons.extended)
 
     implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.collections.immutable)
 
     // Koin
     implementation(libs.koin.android)
@@ -82,6 +83,10 @@ dependencies {
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.client.serialization.kotlinx.json)
     implementation(libs.ktor.client.okhttp)
+
+    // Coil
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.ktor3)
 
     // Compose BOM
     implementation(platform(libs.androidx.compose.bom))

@@ -14,4 +14,4 @@ data object Home: Routes
 data object MyList: Routes
 
 @Serializable
-data class MovieDetails(val id: String): Routes
+data class MovieDetails(val id: Int): Routes

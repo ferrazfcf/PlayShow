@@ -3,7 +3,6 @@ package com.ferraz.playshow.data.remote.service
 import com.ferraz.playshow.data.remote.client.KtorClient
 import com.ferraz.playshow.data.remote.model.movies.MovieResponse
 import com.ferraz.playshow.data.remote.model.movies.MoviesResponse
-import kotlinx.coroutines.withContext
 import org.koin.core.annotation.Single
 
 @Single(binds = [MoviesService::class])

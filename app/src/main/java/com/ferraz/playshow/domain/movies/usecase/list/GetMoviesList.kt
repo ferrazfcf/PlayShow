@@ -4,7 +4,6 @@ import com.ferraz.playshow.core.dispatchers.DispatchersProvider
 import com.ferraz.playshow.data.remote.model.movies.MoviesResponse
 import com.ferraz.playshow.domain.movies.mapper.MovieItemMapper
 import com.ferraz.playshow.domain.movies.model.MovieItem
-import com.ferraz.playshow.data.remote.service.MoviesService
 import com.ferraz.playshow.domain.repositories.MovieItemRepository
 import kotlinx.coroutines.withContext
 import org.koin.core.annotation.Factory

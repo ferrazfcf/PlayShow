@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -18,12 +17,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.ferraz.playshow.presentation.home.model.HomeAction.OpenMovieDetails
 import com.ferraz.playshow.presentation.home.HomeScreen
 import com.ferraz.playshow.presentation.home.HomeViewModel
-import com.ferraz.playshow.presentation.moviedetails.model.MovieDetailsAction
+import com.ferraz.playshow.presentation.home.model.HomeAction.OpenMovieDetails
 import com.ferraz.playshow.presentation.moviedetails.MovieDetailsScreen
 import com.ferraz.playshow.presentation.moviedetails.MovieDetailsViewModel
+import com.ferraz.playshow.presentation.moviedetails.model.MovieDetailsAction
+import com.ferraz.playshow.presentation.mylist.MyListScreen
+import com.ferraz.playshow.presentation.mylist.MyListViewModel
+import com.ferraz.playshow.presentation.mylist.model.MyListAction
 import com.ferraz.playshow.presentation.splash.SplashScreen
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -92,7 +94,12 @@ private fun PlayShowContent(
         }
         composable<MyList> {
             onNavigate(MyList)
-            Text(text = "My List")
+            val viewModel: MyListViewModel = koinViewModel()
+            val state by viewModel.state.collectAsStateWithLifecycle()
+
+            MyListScreen(state) { action ->
+                if (action is MyListAction.OpenMovieDetails) navController.navigate(action.route)
+            }
         }
         composable<MovieDetails> { backStackEntry ->
             val movieDetails: MovieDetails = backStackEntry.toRoute()

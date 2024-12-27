@@ -42,17 +42,4 @@ object MovieMapper {
             originCountry = movie.originCountry
         )
     }
-
-    fun fromEntity(entity: MovieEntity): Movie {
-        return Movie(
-            id = entity.id,
-            title = entity.title,
-            originalTitle = entity.originalTitle,
-            posterUrl = entity.posterUrl,
-            overview = entity.overview,
-            releaseYear = entity.releaseYear,
-            genres = entity.genres,
-            originCountry = entity.originCountry
-        )
-    }
 }

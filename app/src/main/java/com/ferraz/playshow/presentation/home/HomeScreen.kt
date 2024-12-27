@@ -19,10 +19,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ferraz.playshow.domain.movies.model.MovieItem
 import com.ferraz.playshow.presentation.components.CoilCachedImage
 import com.ferraz.playshow.presentation.components.ErrorRetry
 import com.ferraz.playshow.presentation.extensions.OnBottomReached
+import com.ferraz.playshow.presentation.theme.PlayShowTheme
+import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 fun HomeScreen(
@@ -48,7 +52,7 @@ fun HomeScreen(
                     .clickable {
                         onAction(HomeAction.OpenMovieDetails(item.id))
                     },
-                imageUrl = item.posterPath,
+                imageUrl = item.posterUrl,
                 contentDescription = item.title
             )
         }
@@ -79,5 +83,45 @@ fun HomeScreen(
 
     gridState.OnBottomReached(homeState.isLoading.not() && homeState.errorMessage == null) {
         onAction(HomeAction.LoadMoreMovies)
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun HomeScreenSuccessPreview() {
+    val moviesList = mutableListOf<MovieItem>()
+    (1..10).forEach { v ->
+        moviesList.add(MovieItem(v, "Movie Title $v", ""))
+    }
+    val homeState = HomeState(moviesList = moviesList.toImmutableList())
+    PlayShowTheme {
+        HomeScreen(
+            homeState,
+            onAction = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun HomeScreenLoadingPreview() {
+    val homeState = HomeState(errorMessage = "Preview Error Message")
+    PlayShowTheme {
+        HomeScreen(
+            homeState,
+            onAction = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun HomeScreenErrorPreview() {
+    val homeState = HomeState(isLoading = true)
+    PlayShowTheme {
+        HomeScreen(
+            homeState,
+            onAction = { }
+        )
     }
 }

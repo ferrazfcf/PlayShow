@@ -5,7 +5,7 @@ import com.ferraz.playshow.data.remote.model.movies.MovieItemResponse
 data class MovieItem(
     val id: Int,
     val title: String,
-    val posterPath: String
+    val posterUrl: String
 ) {
 
     companion object {
@@ -15,7 +15,7 @@ data class MovieItem(
                 MovieItem(
                     id = requireNotNull(id) { "Movie ID cannot be null" },
                     title = requireNotNull(title) { "Movie title cannot be null" },
-                    posterPath = "https://image.tmdb.org/t/p/w500$posterPath"
+                    posterUrl = "https://image.tmdb.org/t/p/w500$posterPath"
                 )
             }?.getOrNull()
         }

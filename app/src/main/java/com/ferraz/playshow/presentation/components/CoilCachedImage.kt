@@ -126,5 +126,3 @@ private fun CoilCachedImagePreview() {
         contentDescription = "Example Image"
     )
 }
-
-

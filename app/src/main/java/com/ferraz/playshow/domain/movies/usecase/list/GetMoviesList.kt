@@ -2,6 +2,7 @@ package com.ferraz.playshow.domain.movies.usecase.list
 
 import com.ferraz.playshow.core.dispatchers.DispatchersProvider
 import com.ferraz.playshow.data.remote.model.movies.MoviesResponse
+import com.ferraz.playshow.domain.movies.mapper.MovieItemMapper
 import com.ferraz.playshow.domain.movies.model.MovieItem
 import com.ferraz.playshow.domain.remote.MoviesService
 import kotlinx.coroutines.withContext
@@ -26,6 +27,6 @@ class GetMoviesList(
 
     private fun handleSuccess(response: MoviesResponse): List<MovieItem> {
         val results = requireNotNull(response.results) { "Movies results cannot be null" }
-        return results.mapNotNull { MovieItem.fromResponse(it) }
+        return results.mapNotNull { MovieItemMapper.fromResponse(it) }
     }
 }

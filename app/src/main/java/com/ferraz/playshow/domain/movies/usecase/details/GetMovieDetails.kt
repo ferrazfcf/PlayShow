@@ -2,6 +2,7 @@ package com.ferraz.playshow.domain.movies.usecase.details
 
 import com.ferraz.playshow.core.dispatchers.DispatchersProvider
 import com.ferraz.playshow.data.remote.model.movies.MovieResponse
+import com.ferraz.playshow.domain.movies.mapper.MovieMapper
 import com.ferraz.playshow.domain.movies.model.Movie
 import com.ferraz.playshow.domain.remote.MoviesService
 import kotlinx.coroutines.withContext
@@ -24,7 +25,7 @@ class GetMovieDetails(
     }
 
     private fun handleSuccess(movieResponse: MovieResponse): Movie {
-        val movie = Movie.fromResponse(movieResponse)
+        val movie = MovieMapper.fromResponse(movieResponse)
         return requireNotNull(movie) { "Movie cannot be null" }
     }
 }

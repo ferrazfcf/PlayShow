@@ -1,6 +1,6 @@
 [versions]
 agp = "8.7.3"
-kotlin = "2.0.20" # Highest version compativility with koin
+kotlin = "2.0.20" # Highest version compatibility with koin
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -11,7 +11,7 @@ composeBom = "2024.12.01"
 navigationCompose = "2.8.5"
 kotlinxSerialization = "1.7.3"
 materialIcons = "1.7.6"
-kspVersion = "2.0.20-1.0.25" # Highest version compativility with koin
+kspVersion = "2.0.20-1.0.25" # Highest version compatibility with koin
 koin = "4.0.0"
 koinAnnotations = "1.4.0"
 ktor = "3.0.1"
@@ -19,6 +19,7 @@ desugar = "2.1.4"
 kotlinxDatetime = "0.4.0"
 kotlinImmutableCollectionsVersion = "0.3.8"
 coil = "3.0.4"
+room = "2.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -52,6 +53,9 @@ kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime",
 kotlinx-collections-immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinImmutableCollectionsVersion" }
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
 coil-network-ktor3 = { group = "io.coil-kt.coil3", name = "coil-network-ktor3", version.ref = "coil" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

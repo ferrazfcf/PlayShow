@@ -3,6 +3,7 @@ package com.ferraz.playshow.presentation.components
 import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayCircleOutline
@@ -19,6 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.ImageLoader
 import coil3.compose.AsyncImage
@@ -36,18 +39,15 @@ fun CoilCachedImage(
     contentDescription: String? = null
 ) {
     val context = LocalContext.current
-    val imageLoader = remember { createImageLoader(context) }
+    val imageLoader = rememberImageLoader(context)
 
     var isLoading by remember { mutableStateOf(true) }
     var hasFailed by remember { mutableStateOf(false) }
 
     Box(
         modifier = modifier
-            .background(
-                color = MaterialTheme.colorScheme.surface,
-                shape = RoundedCornerShape(16.dp)
-            )
-            .clip(RoundedCornerShape(16.dp)),
+            .clip(RoundedCornerShape(16.dp))
+            .background(MaterialTheme.colorScheme.surface),
         contentAlignment = Alignment.Center
     ) {
         AsyncImage(
@@ -89,6 +89,18 @@ fun CoilCachedImage(
     }
 }
 
+@Composable
+private fun rememberImageLoader(context: Context): ImageLoader {
+    val isInPreview = LocalInspectionMode.current
+    return remember {
+        if (isInPreview) {
+            CoilPreviewImageLoader(context)
+        } else {
+            createImageLoader(context)
+        }
+    }
+}
+
 private fun createImageLoader(context: Context): ImageLoader {
     return ImageLoader.Builder(context)
         .memoryCache {
@@ -104,3 +116,15 @@ private fun createImageLoader(context: Context): ImageLoader {
         }
         .build()
 }
+
+@Preview(showBackground = true, backgroundColor = 0xFFFF0000)
+@Composable
+private fun CoilCachedImagePreview() {
+    CoilCachedImage(
+        modifier = Modifier.size(120.dp),
+        imageUrl = "https://example.com/image.jpg",
+        contentDescription = "Example Image"
+    )
+}
+
+

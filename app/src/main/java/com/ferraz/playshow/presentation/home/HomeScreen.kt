@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -21,9 +20,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.ferraz.playshow.core.extensions.OnBottomReached
 import com.ferraz.playshow.presentation.components.CoilCachedImage
 import com.ferraz.playshow.presentation.components.ErrorRetry
+import com.ferraz.playshow.presentation.extensions.OnBottomReached
 
 @Composable
 fun HomeScreen(

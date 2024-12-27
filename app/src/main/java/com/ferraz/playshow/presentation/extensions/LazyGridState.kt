@@ -1,4 +1,4 @@
-package com.ferraz.playshow.core.extensions
+package com.ferraz.playshow.presentation.extensions
 
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.runtime.Composable

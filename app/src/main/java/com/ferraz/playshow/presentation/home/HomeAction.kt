@@ -4,7 +4,7 @@ import com.ferraz.playshow.presentation.navigation.MovieDetails
 
 sealed interface HomeAction {
     @JvmInline
-    value class OpenMovieDetails(val movieId: Int) : HomeAction {
+    value class OpenMovieDetails(private val movieId: Int) : HomeAction {
         val route: MovieDetails
             get() = MovieDetails(movieId)
     }

@@ -7,11 +7,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowCircleLeft
@@ -23,11 +21,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ferraz.playshow.domain.movies.model.Movie
 import com.ferraz.playshow.presentation.components.CoilCachedImage
 import com.ferraz.playshow.presentation.components.ErrorRetry
+import com.ferraz.playshow.presentation.theme.PlayShowTheme
 
 @Composable
 fun MovieDetailsScreen(
@@ -39,6 +38,7 @@ fun MovieDetailsScreen(
         state.isLoading -> LoadingScreen()
         state.movie != null -> ContentScreen(state.movie, onAction)
         else -> ErrorRetry(
+            modifier = Modifier.fillMaxSize(),
             error = state.error ?: "Invalid movie data",
             color = MaterialTheme.colorScheme.error,
             onRetry = { onAction(MovieDetailsAction.LoadDetails) }
@@ -70,14 +70,14 @@ private fun ContentScreen(movie: Movie, onAction: (MovieDetailsAction) -> Unit) 
 
             Icon(
                 imageVector = Icons.Outlined.Star,
-                contentDescription = "Back",
+                contentDescription = "My list",
                 modifier = Modifier.size(40.dp).clickable { onAction(MovieDetailsAction.NavigateBack) }
             )
         }
 
         CoilCachedImage(
             modifier = Modifier.size(160.dp, 280.dp),
-            imageUrl = movie.posterPath,
+            imageUrl = movie.posterUrl,
             contentDescription = movie.title
         )
 
@@ -122,11 +122,52 @@ private fun ContentScreen(movie: Movie, onAction: (MovieDetailsAction) -> Unit) 
 @Composable
 private fun LoadingScreen() {
     Box(
-        modifier = Modifier
-            .size(120.dp)
-            .clip(RoundedCornerShape(16.dp)),
+        modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun MovieDetailsSuccessPreview() {
+    val movie = Movie(
+        id = 1,
+        title = "Movie Title",
+        originalTitle = "Original Title",
+        posterUrl = "",
+        overview = "Overview",
+        releaseYear = "2023",
+        genres = "Action, Adventure",
+        originCountry = "US",
+    )
+    PlayShowTheme {
+        MovieDetailsScreen(
+            state = MovieDetailsState(movie = movie),
+            onAction = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun MovieDetailsLoadingPreview() {
+    PlayShowTheme {
+        MovieDetailsScreen(
+            state = MovieDetailsState(isLoading = true),
+            onAction = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun MovieDetailsErrorPreview() {
+    PlayShowTheme {
+        MovieDetailsScreen(
+            state = MovieDetailsState(error = "Preview Error"),
+            onAction = { }
+        )
     }
 }

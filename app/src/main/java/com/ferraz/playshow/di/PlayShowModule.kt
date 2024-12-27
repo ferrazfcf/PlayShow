@@ -1,6 +1,10 @@
 package com.ferraz.playshow.di
 
+import android.content.Context
+import androidx.room.Room
 import com.ferraz.playshow.BuildConfig
+import com.ferraz.playshow.data.local.dao.MovieDao
+import com.ferraz.playshow.data.local.db.MoviesDatabase
 import com.ferraz.playshow.data.remote.model.AuthToken
 import com.ferraz.playshow.data.remote.model.BaseUrl
 import io.ktor.client.engine.HttpClientEngine
@@ -26,5 +30,19 @@ class PlayShowModule {
     @Single
     fun authToken(): AuthToken {
         return AuthToken(BuildConfig.API_TOKEN)
+    }
+
+    @Single
+    fun moviesDb(context: Context): MoviesDatabase {
+        return Room.databaseBuilder(
+            context,
+            MoviesDatabase::class.java,
+            name = "movies_database"
+        ).build()
+    }
+
+    @Single
+    fun movieDao(db: MoviesDatabase): MovieDao {
+        return db.movieDao()
     }
 }

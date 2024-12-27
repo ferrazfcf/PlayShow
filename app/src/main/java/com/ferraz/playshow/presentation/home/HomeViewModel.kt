@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.ferraz.playshow.core.dispatchers.DispatchersProvider
 import com.ferraz.playshow.domain.movies.model.MovieItem
 import com.ferraz.playshow.domain.movies.usecase.list.MoviesList
+import com.ferraz.playshow.presentation.home.model.HomeAction
+import com.ferraz.playshow.presentation.home.model.HomeState
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

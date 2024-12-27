@@ -26,6 +26,8 @@ import androidx.compose.ui.unit.dp
 import com.ferraz.playshow.domain.movies.model.Movie
 import com.ferraz.playshow.presentation.components.CoilCachedImage
 import com.ferraz.playshow.presentation.components.ErrorRetry
+import com.ferraz.playshow.presentation.moviedetails.model.MovieDetailsAction
+import com.ferraz.playshow.presentation.moviedetails.model.MovieDetailsState
 import com.ferraz.playshow.presentation.theme.PlayShowTheme
 
 @Composable

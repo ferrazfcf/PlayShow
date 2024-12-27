@@ -1,4 +1,4 @@
-package com.ferraz.playshow.presentation.home
+package com.ferraz.playshow.presentation.home.model
 
 import com.ferraz.playshow.domain.movies.model.MovieItem
 import kotlinx.collections.immutable.ImmutableList

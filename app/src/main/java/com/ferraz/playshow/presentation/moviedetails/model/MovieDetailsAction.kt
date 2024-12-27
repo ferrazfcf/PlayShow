@@ -1,4 +1,4 @@
-package com.ferraz.playshow.presentation.moviedetails
+package com.ferraz.playshow.presentation.moviedetails.model
 
 sealed interface MovieDetailsAction {
     data object LoadDetails: MovieDetailsAction

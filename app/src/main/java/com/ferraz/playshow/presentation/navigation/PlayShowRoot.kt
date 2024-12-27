@@ -18,10 +18,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.ferraz.playshow.presentation.home.HomeAction.OpenMovieDetails
+import com.ferraz.playshow.presentation.home.model.HomeAction.OpenMovieDetails
 import com.ferraz.playshow.presentation.home.HomeScreen
 import com.ferraz.playshow.presentation.home.HomeViewModel
-import com.ferraz.playshow.presentation.moviedetails.MovieDetailsAction
+import com.ferraz.playshow.presentation.moviedetails.model.MovieDetailsAction
 import com.ferraz.playshow.presentation.moviedetails.MovieDetailsScreen
 import com.ferraz.playshow.presentation.moviedetails.MovieDetailsViewModel
 import com.ferraz.playshow.presentation.splash.SplashScreen

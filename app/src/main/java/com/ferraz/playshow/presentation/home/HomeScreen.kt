@@ -25,6 +25,8 @@ import com.ferraz.playshow.domain.movies.model.MovieItem
 import com.ferraz.playshow.presentation.components.CoilCachedImage
 import com.ferraz.playshow.presentation.components.ErrorRetry
 import com.ferraz.playshow.presentation.extensions.OnBottomReached
+import com.ferraz.playshow.presentation.home.model.HomeAction
+import com.ferraz.playshow.presentation.home.model.HomeState
 import com.ferraz.playshow.presentation.theme.PlayShowTheme
 import kotlinx.collections.immutable.toImmutableList
 

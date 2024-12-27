@@ -6,5 +6,5 @@ data class MovieDetailsState(
     val isLoading: Boolean = false,
     val movie: Movie? = null,
     val error: String? = null,
-
+    val myListState: MyListState = MyListState.PROCESSING
 )

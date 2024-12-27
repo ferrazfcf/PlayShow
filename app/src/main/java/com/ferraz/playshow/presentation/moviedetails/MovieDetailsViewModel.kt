@@ -5,8 +5,12 @@ import androidx.lifecycle.viewModelScope
 import com.ferraz.playshow.core.dispatchers.DispatchersProvider
 import com.ferraz.playshow.domain.movies.model.Movie
 import com.ferraz.playshow.domain.movies.usecase.details.MovieDetails
+import com.ferraz.playshow.domain.movies.usecase.mylist.add.AddToMyList
+import com.ferraz.playshow.domain.movies.usecase.mylist.get.IsMovieOnMyList
+import com.ferraz.playshow.domain.movies.usecase.mylist.remove.RemoveFromMyList
 import com.ferraz.playshow.presentation.moviedetails.model.MovieDetailsAction
 import com.ferraz.playshow.presentation.moviedetails.model.MovieDetailsState
+import com.ferraz.playshow.presentation.moviedetails.model.MyListState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -21,6 +25,9 @@ import org.koin.core.annotation.InjectedParam
 class MovieDetailsViewModel(
     @InjectedParam private val movieId: Int,
     private val movieDetails: MovieDetails,
+    private val isMovieOnMyList: IsMovieOnMyList,
+    private val addToMyList: AddToMyList,
+    private val removeFromMyList: RemoveFromMyList,
     private val dispatchers: DispatchersProvider
 ) : ViewModel() {
 
@@ -36,6 +43,8 @@ class MovieDetailsViewModel(
     fun onAction(action: MovieDetailsAction) {
         when (action) {
             is MovieDetailsAction.LoadDetails -> loadDetails(movieId)
+            MovieDetailsAction.AddToMyList -> addToMyList()
+            MovieDetailsAction.RemoveFromMyList -> removeFromMyList()
             is MovieDetailsAction.NavigateBack -> Unit
         }
     }
@@ -54,6 +63,7 @@ class MovieDetailsViewModel(
             _state.update { state ->
                 updateMovieDetailsState(state, result)
             }
+            checkIsMovieOnMyList(movieId)
         }
     }
 
@@ -74,5 +84,55 @@ class MovieDetailsViewModel(
             movie = movie,
             error = error
         )
+    }
+
+    private fun checkIsMovieOnMyList(movieId: Int) {
+        viewModelScope.launch(dispatchers.default) {
+            val result = isMovieOnMyList(movieId)
+            _state.update { state ->
+                result.fold(
+                    onSuccess = { state.copy(myListState = MyListState.ADDED) },
+                    onFailure = { state.copy(myListState = MyListState.NOT_ADDED) }
+                )
+            }
+        }
+    }
+
+    private fun addToMyList() {
+        val movie = state.value.movie ?: return
+        if (state.value.isLoading) return
+
+        viewModelScope.launch(dispatchers.default) {
+            _state.update { state ->
+                state.copy(myListState = MyListState.PROCESSING)
+            }
+
+            val result = addToMyList(movie)
+            _state.update { state ->
+                result.fold(
+                    onSuccess = { state.copy(myListState = MyListState.ADDED) },
+                    onFailure = { state.copy(myListState = MyListState.NOT_ADDED) }
+                )
+            }
+        }
+    }
+
+    private fun removeFromMyList() {
+        val movie = state.value.movie ?: return
+        if (state.value.movie == null) return
+
+        viewModelScope.launch(dispatchers.default) {
+            _state.update { state ->
+                state.copy(myListState = MyListState.PROCESSING)
+            }
+
+            val result = removeFromMyList(movie)
+            _state.update { state ->
+                result.fold(
+                    onSuccess = { state.copy(myListState = MyListState.NOT_ADDED) },
+                    onFailure = { state.copy(myListState = MyListState.ADDED) }
+                )
+            }
+        }
     }
 }

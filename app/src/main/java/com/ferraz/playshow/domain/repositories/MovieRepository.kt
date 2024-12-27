@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface MovieRepository {
     suspend fun fetchMovieById(movieId: Int): Result<MovieResponse>
     fun getAllMovies(): Flow<List<MovieEntity>>
-    fun getMovieById(movieId: Int): Flow<MovieEntity?>
+    suspend fun getMovieById(movieId: Int): MovieEntity?
     suspend fun insertMovie(movie: MovieEntity)
     suspend fun deleteMovie(movie: MovieEntity)
 }

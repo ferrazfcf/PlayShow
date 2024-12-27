@@ -28,8 +28,10 @@ class MovieRepositoryImpl(
         return dao.getAllMovies().flowOn(dispatchers.io)
     }
 
-    override fun getMovieById(movieId: Int): Flow<MovieEntity?> {
-        return dao.getMovieById(movieId).flowOn(dispatchers.io)
+    override suspend fun getMovieById(movieId: Int): MovieEntity? {
+        return withContext(dispatchers.io) {
+            dao.getMovieById(movieId)
+        }
     }
 
     override suspend fun insertMovie(movie: MovieEntity) {

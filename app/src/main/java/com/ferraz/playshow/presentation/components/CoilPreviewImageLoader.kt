@@ -18,7 +18,7 @@ import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
 import kotlin.random.Random
 
-class CoilPreviewImageLoader(context: Context): ImageLoader {
+class CoilPreviewImageLoader(context: Context) : ImageLoader {
     override val components: ComponentRegistry = ImageLoader.Builder(context).build().components
     override val defaults: ImageRequest.Defaults = ImageLoader.Builder(context).build().defaults
     override val diskCache: DiskCache? = null
@@ -29,7 +29,7 @@ class CoilPreviewImageLoader(context: Context): ImageLoader {
         return object : Disposable {
             override val job: Deferred<ImageResult> = CompletableDeferred(result)
             override val isDisposed: Boolean = false
-            override fun dispose() {}
+            override fun dispose() = Unit
         }
     }
 
@@ -41,7 +41,7 @@ class CoilPreviewImageLoader(context: Context): ImageLoader {
         throw UnsupportedOperationException("Preview ImageLoader does not support builder calls")
     }
 
-    override fun shutdown() { }
+    override fun shutdown() = Unit
 
     private fun newResult(request: ImageRequest): ImageResult {
         val random = Random.nextInt(2)
@@ -51,7 +51,7 @@ class CoilPreviewImageLoader(context: Context): ImageLoader {
                 request = request,
                 dataSource = DataSource.MEMORY
             )
-            else -> ErrorResult (
+            else -> ErrorResult(
                 image = null,
                 request = request,
                 throwable = IllegalStateException("Preview ImageLoader does not support preview images")

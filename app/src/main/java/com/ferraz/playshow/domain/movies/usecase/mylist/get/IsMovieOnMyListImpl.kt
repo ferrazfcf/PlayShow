@@ -15,7 +15,7 @@ class IsMovieOnMyListImpl(
         return withContext(dispatchers.default) {
             val movie = repository.getMovieById(movieId)
             return@withContext runCatching {
-                if (movie == null) throw Exception("Movie not found")
+                if (movie == null) throw NoSuchElementException("Movie not found")
             }
         }
     }

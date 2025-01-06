@@ -105,13 +105,13 @@ private fun createImageLoader(context: Context): ImageLoader {
     return ImageLoader.Builder(context)
         .memoryCache {
             MemoryCache.Builder()
-                .maxSizePercent(context, 0.25)
+                .maxSizePercent(context, MEMORY_CACHE_PERCENTAGE)
                 .build()
         }
         .diskCache {
             DiskCache.Builder()
-                .directory(context.cacheDir.resolve("image_cache"))
-                .maxSizePercent(0.05)
+                .directory(context.cacheDir.resolve(DISK_CACHE_DIRECTORY))
+                .maxSizePercent(DISK_CACHE_PERCENTAGE)
                 .build()
         }
         .build()
@@ -126,3 +126,7 @@ private fun CoilCachedImagePreview() {
         contentDescription = "Example Image"
     )
 }
+
+private const val MEMORY_CACHE_PERCENTAGE = 0.25
+private const val DISK_CACHE_PERCENTAGE = 0.05
+private const val DISK_CACHE_DIRECTORY = "image_cache"

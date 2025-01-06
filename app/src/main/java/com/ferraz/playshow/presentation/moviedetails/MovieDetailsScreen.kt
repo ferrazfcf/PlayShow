@@ -40,7 +40,6 @@ fun MovieDetailsScreen(
     state: MovieDetailsState,
     onAction: (MovieDetailsAction) -> Unit
 ) {
-
     when {
         state.isLoading -> LoadingScreen()
         state.movie != null -> ContentScreen(state.movie, state.myListState, onAction)

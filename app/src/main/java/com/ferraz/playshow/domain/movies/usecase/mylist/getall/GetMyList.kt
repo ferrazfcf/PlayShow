@@ -17,9 +17,11 @@ class GetMyList(
 
     override fun invoke(): Flow<List<MovieItem>> {
         return repository.getAllMovies()
-            .map { myList -> myList
-                .sortedByDescending { movie -> movie.releaseYear }
-                .map(MovieItemMapper::fromEntity) }
+            .map { myList ->
+                myList
+                    .sortedByDescending { movie -> movie.releaseYear }
+                    .map(MovieItemMapper::fromEntity)
+            }
             .flowOn(dispatchers.default)
     }
 }

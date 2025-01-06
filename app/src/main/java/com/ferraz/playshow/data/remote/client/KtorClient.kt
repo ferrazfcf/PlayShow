@@ -30,7 +30,10 @@ import org.koin.core.annotation.Single
 class KtorClient(
     engine: HttpClientEngine,
     baseUrl: BaseUrl,
-    token: AuthToken
+    token: AuthToken,
+    private val requestTimeout: Long = DEFAULT_TIMEOUT,
+    private val connectTimeout: Long = DEFAULT_TIMEOUT,
+    private val socketTimeout: Long = DEFAULT_TIMEOUT
 ) {
 
     val client: HttpClient by lazy {
@@ -43,18 +46,20 @@ class KtorClient(
 
     private fun HttpClientConfig<*>.installContentNegotiationJson() {
         install(ContentNegotiation) {
-            json(Json {
-                isLenient = true
-                ignoreUnknownKeys = true
-            })
+            json(
+                Json {
+                    isLenient = true
+                    ignoreUnknownKeys = true
+                }
+            )
         }
     }
 
     private fun HttpClientConfig<*>.installTimeout() {
         install(HttpTimeout) {
-            requestTimeoutMillis = 10000
-            connectTimeoutMillis = 10000
-            socketTimeoutMillis = 10000
+            requestTimeoutMillis = requestTimeout
+            connectTimeoutMillis = connectTimeout
+            socketTimeoutMillis = socketTimeout
         }
     }
 
@@ -67,15 +72,16 @@ class KtorClient(
         }
     }
 
+    @Suppress("ThrowsCount")
     suspend inline fun <reified T> HttpResponse.parseResponse(): Result<T> {
         return runCatching {
             when (status.value) {
-                in 200..299 -> body<T>()
-                in 400..499 -> {
+                in SUCCESS_CODES -> body<T>()
+                in CLIENT_ERROR_CODES -> {
                     val body = body<ErrorBody>()
                     throw ClientException(body.toString())
                 }
-                in 500..599 -> throw ServerException(status.description)
+                in SERVER_ERROR_CODES -> throw ServerException(status.description)
                 else -> throw UnexpectedException(status.description)
             }
         }
@@ -89,5 +95,12 @@ class KtorClient(
         return client.post(path) {
             setBody(body)
         }.parseResponse()
+    }
+
+    companion object {
+        private const val DEFAULT_TIMEOUT = 10000L
+        val SUCCESS_CODES = 200..299
+        val CLIENT_ERROR_CODES = 400..499
+        val SERVER_ERROR_CODES = 500..599
     }
 }

@@ -36,7 +36,7 @@ class MovieDetailsViewModel(
         onAction(MovieDetailsAction.LoadDetails)
     }.stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
+        started = SharingStarted.WhileSubscribed(STATE_STOP_TIMEOUT),
         initialValue = MovieDetailsState()
     )
 
@@ -134,5 +134,9 @@ class MovieDetailsViewModel(
                 )
             }
         }
+    }
+
+    companion object {
+        private const val STATE_STOP_TIMEOUT: Long = 5_000
     }
 }

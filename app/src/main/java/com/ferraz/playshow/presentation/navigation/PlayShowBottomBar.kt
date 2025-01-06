@@ -28,7 +28,7 @@ import com.ferraz.playshow.presentation.theme.PlayShowTheme
 
 @Composable
 fun PlayShowBottomBar(route: Routes?, navigateTo: (Routes) -> Unit) {
-    when(route) {
+    when (route) {
         Home, MyList -> BottomBar(route, navigateTo)
         else -> Unit
     }
@@ -64,13 +64,13 @@ private fun BottomBarItem(
     selected: Boolean,
     onClick: () -> Unit
 ) {
-
     val backgroundColor by animateColorAsState(
         targetValue = if (selected) {
             MaterialTheme.colorScheme.secondary
         } else {
             MaterialTheme.colorScheme.background
-        }, label = "Bottom Bar Item Background"
+        },
+        label = "Bottom Bar Item Background"
     )
 
     val color by animateColorAsState(
@@ -78,10 +78,11 @@ private fun BottomBarItem(
             MaterialTheme.colorScheme.onSecondaryContainer
         } else {
             MaterialTheme.colorScheme.onBackground
-        }, label = "Bottom Bar Item Color"
+        },
+        label = "Bottom Bar Item Color"
     )
 
-    Column (
+    Column(
         modifier = Modifier
             .size(64.dp)
             .background(backgroundColor, shape = RoundedCornerShape(16.dp))

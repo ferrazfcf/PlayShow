@@ -21,7 +21,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun SplashScreen(navigateTo: (Routes) -> Unit) {
     LaunchedEffect(Unit) {
-        delay(5000)
+        delay(ANIMATION_DURATION)
         navigateTo(Home)
     }
 
@@ -42,3 +42,5 @@ private fun SplashScreenPreview() {
         SplashScreen(navigateTo = {})
     }
 }
+
+private const val ANIMATION_DURATION: Long = 5_000

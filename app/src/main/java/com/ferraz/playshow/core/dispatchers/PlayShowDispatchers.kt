@@ -5,7 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import org.koin.core.annotation.Single
 
 @Single(binds = [DispatchersProvider::class])
-class PlayShowDispatchers: DispatchersProvider  {
+class PlayShowDispatchers : DispatchersProvider {
     override val io: CoroutineDispatcher
         get() = Dispatchers.IO
     override val default: CoroutineDispatcher

@@ -70,7 +70,7 @@ fun MyListScreen(
 @Composable
 private fun MyListScreenPreview() {
     val moviesList = mutableListOf<MovieItem>()
-    (1..10).forEach { v ->
+    for (v in PREVIEW_RANGE) {
         moviesList.add(MovieItem(v, "Movie Title $v", ""))
     }
     PlayShowTheme {
@@ -91,3 +91,7 @@ private fun HomeScreenEmptyPreview() {
         )
     }
 }
+
+private const val RANGE_START = 1
+private const val RANGE_END = 10
+private val PREVIEW_RANGE = RANGE_START..RANGE_END

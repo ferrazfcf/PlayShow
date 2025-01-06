@@ -37,7 +37,7 @@ fun PulsatingIcon(
         targetValue = pulseFraction,
         label = label,
         animationSpec = infiniteRepeatable(
-            animation = tween(1000, easing = FastOutSlowInEasing),
+            animation = tween(ANIMATION_DURATION, easing = FastOutSlowInEasing),
             repeatMode = RepeatMode.Reverse
         )
     )
@@ -67,3 +67,5 @@ private fun PulsatingIconPreview() {
         )
     }
 }
+
+private const val ANIMATION_DURATION = 1_000

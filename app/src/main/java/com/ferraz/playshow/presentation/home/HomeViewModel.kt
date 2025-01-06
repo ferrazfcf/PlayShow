@@ -28,7 +28,7 @@ class HomeViewModel(
         onAction(HomeAction.LoadMovies)
     }.stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
+        started = SharingStarted.WhileSubscribed(STATE_STOP_TIMEOUT),
         initialValue = HomeState()
     )
 
@@ -43,8 +43,11 @@ class HomeViewModel(
     private fun loadMoreMovies() {
         if (state.value.isLoading) return
         var currentPage = state.value.currentPage
-        if (state.value.moviesList.isEmpty()) currentPage = 1
-        else if (state.value.errorMessage == null) currentPage++
+        if (state.value.moviesList.isEmpty()) {
+            currentPage = FIRST_PAGE
+        } else if (state.value.errorMessage == null) {
+            currentPage++
+        }
         loadMovies(currentPage)
     }
 
@@ -85,5 +88,10 @@ class HomeViewModel(
             currentPage = page,
             errorMessage = error
         )
+    }
+
+    companion object {
+        private const val FIRST_PAGE = 1
+        private const val STATE_STOP_TIMEOUT: Long = 5_000
     }
 }

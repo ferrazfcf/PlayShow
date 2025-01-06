@@ -92,7 +92,7 @@ fun HomeScreen(
 @Composable
 private fun HomeScreenSuccessPreview() {
     val moviesList = mutableListOf<MovieItem>()
-    (1..10).forEach { v ->
+    for (v in PREVIEW_RANGE) {
         moviesList.add(MovieItem(v, "Movie Title $v", ""))
     }
     val homeState = HomeState(moviesList = moviesList.toImmutableList())
@@ -127,3 +127,7 @@ private fun HomeScreenErrorPreview() {
         )
     }
 }
+
+private const val RANGE_START = 1
+private const val RANGE_END = 10
+private val PREVIEW_RANGE = RANGE_START..RANGE_END

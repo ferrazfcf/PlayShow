@@ -30,16 +30,6 @@ android {
         buildConfigField("String", "API_TOKEN", localProperties["API_TOKEN"].toString())
 
         multiDexEnabled = true
-
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += mapOf(
-                    "room.schemaLocation" to "$projectDir/schemas",
-                    "room.incremental" to "true",
-                    "room.expandProjection" to "true"
-                )
-            }
-        }
     }
 
     buildFeatures.buildConfig = true
@@ -83,6 +73,9 @@ detekt {
 
 ksp {
     arg("KOIN_CONFIG_CHECK","true")
+    arg("room.schemaLocation", "$projectDir/schemas")
+    arg("room.incremental", "true")
+    arg("room.expandProjection", "true")
 }
 
 dependencies {

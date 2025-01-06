@@ -1,4 +1,3 @@
-import io.gitlab.arturbosch.detekt.Detekt
 import java.util.Properties
 
 plugins {
@@ -8,6 +7,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.ksp)
     alias(libs.plugins.detekt)
+    alias(libs.plugins.kover)
 }
 
 private val localProperties = Properties().apply {
@@ -144,16 +144,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 }
 
-tasks.withType<Detekt>().configureEach {
-    reports {
-        xml.required.set(false)
-        html.required.set(true)
-        txt.required.set(false)
-        sarif.required.set(false)
-        md.required.set(false)
-    }
-}
-
 tasks.named("build") {
     dependsOn(":app:detekt")
+    dependsOn(":app:koverHtmlReport")
 }

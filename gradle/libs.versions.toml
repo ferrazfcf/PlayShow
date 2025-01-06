@@ -28,6 +28,7 @@ robolectric = "4.14.1"
 coreTest = "1.6.1"
 coreTestKtx = "1.6.1"
 detekt = "1.23.7"
+kover = "0.9.0"
 
 [libraries]
 # androidx
@@ -107,3 +108,4 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref= "kotlin" }
 kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }

@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import com.ferraz.playshow.presentation.theme.PlayShowTheme
 
+@Suppress("LongParameterList")
 @Composable
 fun IconTextButton(
     modifier: Modifier = Modifier,
